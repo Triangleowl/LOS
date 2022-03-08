@@ -1,27 +1,39 @@
+
 [org 0x7c00]
 
-mov ax, 3
+; why call 0x10 ???
+mov ax, 0x03
 int 0x10
 
-;初始化段寄存器
+
 mov ax, 0x00
 mov ds, ax
 mov es, ax
 mov ss, ax
 mov sp, 0x7c00
 
-; 往显存写Hello
-mov ax, 0xb800
-mov ds, ax
-mov byte[0], 'H'
-mov byte[2], 'e'
-mov byte[4], 'l'
-mov byte[6], 'l'
-mov byte[8], 'o'
-mov byte[10], '!'
 
-; 阻塞
-jmp $
+xchg bx, bx
+
+mov si, greeting
+call print
+
+print:
+    mov ah, 0x0e
+
+.continue:
+    mov al, [si]
+    cmp al, 0x00
+    jz .done
+    int 0x10
+    inc si
+    jmp .continue
+
+.done:
+    ret
+
+greeting:
+    db "Hello, LOS", 0x0a, 0x0d, 0x00
 
 times 510 - ($ - $$) db 0x00
 db 0x55, 0xaa

@@ -17,7 +17,7 @@ bochs: $(BOCHSRC_DIR)/bochsrc $(BIN_DIR)/master.img
 
 .PHONY: clean
 clean:
-	rm -f $(BIN_DIR)/master.img.lock
-	rm $(BIN_DIR)/*
+	rm -f $(BIN_DIR)/*
 	rmdir $(BIN_DIR)
 	rm -f bx_enh_dbg.ini
+
