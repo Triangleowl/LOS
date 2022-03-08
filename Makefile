@@ -7,6 +7,8 @@ all: $(BIN_DIR)/master.img $(BIN_DIR)/boot.bin
 $(BIN_DIR)/master.img: $(BIN_DIR)/boot.bin
 	yes | bximage -q -hd=16 -func=create -sectsize=512 -imgmode=flat $@
 	dd if=$< of=$@ bs=512 count=1 conv=notrunc
+# the bs is 512 default
+	dd if=Makefile of=$@ count=1 seek=1 conv=notrunc
 
 $(BIN_DIR)/boot.bin: $(SRC_DIR)/boot.asm
 	mkdir $(BIN_DIR)
