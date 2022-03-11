@@ -31,6 +31,8 @@ mov bl, 1; 扇区数量
 call write_disk
 
 xchg bx, bx
+mov word [0x1000], 0xdead
+jz 0x1002
 jmp $
 
 read_disk:
