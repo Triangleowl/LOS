@@ -23,15 +23,15 @@ mov bl, 1; 扇区数量
 
 call read_disk
 
-xchg bx, bx; bochs 魔术断点
+; xchg bx, bx; bochs 魔术断点
 
-mov edi, 0x1000; 读取的目标内存
-mov ecx, 2; 起始扇区
-mov bl, 1; 扇区数量
-call write_disk
+; mov edi, 0x1000; 读取的目标内存
+; mov ecx, 2; 起始扇区
+; mov bl, 1; 扇区数量
+; call write_disk
 
 xchg bx, bx
-mov word [0x1000], 0xdead
+cmp word [0x1000], 0xdead
 jz 0x1002
 jmp $
 
